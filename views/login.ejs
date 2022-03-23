@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Aucx</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+</head>
+<body>
+    <h1>Welcome to Aucx</h1>
+    <div id="container">
+
+    </div>
+    
+<script>
+  // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  const firebaseConfig = {
+  apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+  authDomain: "aucx-8f0c7.firebaseapp.com",
+  databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+  projectId: "aucx-8f0c7",
+  storageBucket: "aucx-8f0c7.appspot.com",
+  messagingSenderId: "661074584627",
+  appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+  measurementId: "G-6ZBVC5M3SY"
+};
+  firebase.initializeApp(firebaseConfig);
+</script>
+    <script>
+        $.ajax({
+            url:"/getAuctions",
+            method:"POST",
+            success:function(result,status,xhr){
+                result.result.forEach(auction => {
+                    console.log(auction);
+                    var html =`<h1>${auction.name}</h2>
+                        <h2>${auction.startDate}</h2>
+                        <p id="highest-bid">${auction.item.highestBid?auction.item.highestBid.value:auction.item.reserve}</p>
+                        <form id="place-bid-form">
+                            <input type="hidden" id="auctionName" value="${auction.name}"/>
+                            <input type="number" id="bidValue" placeholder="Enter bid" name="bidValue"/>
+                            <input type="button" id="submit" value="Place Bid"/>
+                            </form>`
+                    $("#container").html(html);
+                    firebase.database().ref(`auctions/${auction.name}/item/highestBid`).on("value",(snapshot)=>{
+                       $("#highest-bid").html(snapshot.val().value)
+                 })
+                 $("#submit").on("click",()=>{
+            var bidValue = $("#bidValue").val();
+            var highestBid = $("#highest-bid").html();
+            var auctionName = $("#auctionName").val();
+
+            console.log(bidValue,highestBid,auctionName);
+            $.ajax({
+                url:`/placeBid/${auction.name}`,
+                method:"POST",
+                data:{bidValue:bidValue,highestBid:highestBid},
+                success:function(result,status,xhr){
+                    if(result.message==="ok")
+                    alert("ok");
+                    else
+                    alert("not ok");
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            })
+        })
+                });
+                
+                
+            },
+            error:function(xhr,status,error){
+
+            }
+        })
+       
+
+    </script>
+
+</body>
+</html>
