@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Aucx</title>
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <!-- Custom CSS -->
+     <link rel="stylesheet" href="../css/style.css">
+     <!-- Sweet Alert JavaScript -->
+     <script src="/js/sweetalert2.js"></script>
+     <!-- Fontawesome CSS -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+     <!-- Nunito Google Font -->
+     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+</head>
+<body style="display: flex;">
+        <div class="sidebar"></div>
+        <div class="container-fluid" style="width:fit-content;">
+                <input id="userData" type="hidden" value="<%= userData %>">
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary">
+                    <h1 style="font-size: 4.5rem;margin: 0;padding: 0;display: inline-block;" class="h1">Aucx</h1>
+                            <small style="color: black;margin: 0;padding: 0;">Best Place to Bid</small>
+                </div>
+                <div>
+                <div class="profile"></div>
+                <div id="profile-menu">
+                    <a class="profile-menu-item" href="/profile">Profile</a>
+                    <a class="profile-menu-item" href="/sessionLogout">Logout</a>
+                  </div> 
+                </div>
+            </div>
+
+                <div class="live-auctions">
+                    <h2>Live Auctions</h1>
+                    <ul class="auction-list">
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div class="upcoming-auctions">
+                    <h2>Upcoming Auctions</h1>
+                    <ul class="auction-list">
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div id="container" class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary">
+                  
+                </div> -->
+
+        </div>
+               
+    
+<script>
+  // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  const firebaseConfig = {
+  apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+  authDomain: "aucx-8f0c7.firebaseapp.com",
+  databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+  projectId: "aucx-8f0c7",
+  storageBucket: "aucx-8f0c7.appspot.com",
+  messagingSenderId: "661074584627",
+  appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+  measurementId: "G-6ZBVC5M3SY"
+};
+  firebase.initializeApp(firebaseConfig);
+</script>
+    <script>
+        var toggle1 = 0 ;
+        $(".profile").on("click",(e)=>{
+            if(toggle1===0){
+                toggle1=1;
+                var x = e.target.offsetTop;
+                var y = e.target.offsetWidth;
+                $("#profile-menu").css({"display":"block","margin":"1rem"});
+                setTimeout(()=>{
+                    $("#profile-menu").css({"display":"none"});
+                },3500)
+            }else{
+                toggle1=0;
+                var x = e.target.offsetTop;
+                var y = e.target.offsetWidth;
+                $("#profile-menu").css({"display":"none"});
+            }
+            // $("#profile-menu").css("right",y);
+            console.log(x,y);
+        })
+        var toggle = 0;
+        $(".sidebar").on('click',()=>{
+            if(toggle===0){
+                toggle=1;
+                $(".sidebar").css({
+                    "width":"25%",
+                    "top":"0",
+                    "left":"0",
+                    "height":"100vh",
+                    "background-color":"#007bff7a"
+                });
+            }
+            else{
+                toggle=0;
+                $(".sidebar").css({
+                    "width":"40px",
+                    "top":"10px",
+                    "left":"0px",
+                    "height":"40px",
+                    "background-color":"#007BFF"
+    
+                });
+            }
+        })
+        var html="";
+        $.ajax({
+            url:"/getAuctions",
+            method:"POST",
+            success:function(result,status,xhr){
+                result.result.forEach(auction => {
+                    console.log(auction);
+
+                    html+=`
+                    <li id=${auction.name} class="auction-list-item">
+                        <a class="auction-link" href ="/auctions/${auction.name}">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">${auction.name}</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b><span id="${auction.name}highest-bid">${auction.item.highestBid?auction.item.highestBid.value:auction.item.reserve}</span></p>
+                                                <p><b>Description : </b>Molestias totam quibusdam consequuntur iste nemo ut, illum doloribus sit, molestiae ratione deleniti.</p>
+                                        </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+                    // var html =`<h1>${auction.name}</h2>
+                    //     <h2>${auction.startDate}</h2>
+                    //     <p id="highest-bid">${auction.item.highestBid?auction.item.highestBid.value:auction.item.reserve}</p>
+                    //     <form id="place-bid-form">
+                    //         <input type="hidden" id="auctionName" value="${auction.name}"/>
+                    //         <input type="number" id="bidValue" placeholder="Enter bid" name="bidValue"/>
+                    //         <input type="button" id="submit" value="Place Bid"/>
+                    //         </form>`
+                    console.log(auction.item.highestBid?auction.item.highestBid.value:auction.item.reserve);
+                    $(".auction-list").html(html);
+        
+            //      $("#submit").on("click",()=>{
+            // var bidValue = $("#bidValue").val();
+            // var highestBid = $("#highest-bid").html();
+            // var auctionName = $("#auctionName").val();
+            // var userData = <%-JSON.stringify(userData)%>
+
+            // console.log(bidValue,highestBid,auctionName,userData);
+            // $.ajax({
+            //     url:`/placeBid/${auction.name}`,
+            //     method:"POST",
+            //     data:{bidValue:bidValue,highestBid:highestBid,userData:userData},
+            //     success:function(result,status,xhr){
+            //         if(result.message==="ok")
+            //         alert("ok");
+            //         else
+            //         alert("not ok");
+            //     },
+            //     error:function(xhr,status,error){
+            //         console.log(error);
+            //     }
+            // })
+        // })
+                });
+
+                // var auctions = document.querySelectorAll(".live-auctions .auction-list-item");
+                // for(var i = 0;i<auctions.length;i++){
+
+                //     auctions[i].addEventListener('click',(e)=>{
+                //         console.log(e.srcElement);
+                //     })
+                        
+                //     console.log(auctions[i]);
+     
+                // } 
+                
+                firebase.database().ref(`auctions`).on("value",(snapshot)=>{
+                        snapshot.forEach(element=>{
+                            $(`#${element.val().name}highest-bid`).html(element.val().item.highestBid.value);
+                        })
+                   
+                 })
+                
+            },
+            error:function(xhr,status,error){
+
+            }
+        })
+       
+
+    </script>
+
+</body>
+</html>

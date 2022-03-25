@@ -155,8 +155,8 @@ function signUp(){
             var errorMessage = error.message;
             swal({
                 type: 'error',
-                title: 'Error',
-                text: "Error",
+                title: errorCode,
+                text: errorMessage,
             })
         });
     }
@@ -221,7 +221,7 @@ function signIn(){
                             title: 'Succesfully signed in', 
                         }).then((value) => {
                             setTimeout(function(){
-                                window.location.href="/profile"
+                                window.location.href="/dashboard"
                             }, 1000)
                         });
                     },
@@ -238,8 +238,8 @@ function signIn(){
             var errorMessage = error.message;
             swal({
                 type: 'error',
-                title: 'Error',
-                text: "Error",
+                title: errorCode,
+                text: errorMessage,
             })
         });
     }
@@ -267,7 +267,7 @@ function hideEditProfileForm(){
     document.getElementById("editProfileForm").style.display = "none";
 }
 // xxxxxxxxxx Save profile and update database xxxxxxxxxx
-function saveProfile(){
+function saveProfile(uid){
     let userFullName = document.getElementById("userFullName").value 
     let userSurname = document.getElementById("userSurname").value 
     // let userFacebook = document.getElementById("userFacebook").value 
@@ -281,11 +281,6 @@ function saveProfile(){
     }else if(userSurname === ""){
         return checkUserSurname();
     }else{
-        let user = firebase.auth().currentUser;
-        let uid;
-        if(user != null){
-            uid = user.uid;
-        }
         var firebaseRef = firebase.database().ref('Users');
         var userData = {
             userFullName: userFullName,

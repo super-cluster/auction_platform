@@ -17,10 +17,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>Profile | Firebase Auth</title>
 </head>
-<body class="bg-light">
+<body>
     <div class="container-fluid ">
         <div class="row mx-1">
-            <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center mt-5 pb-4 text-primary">
+            <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary">
                 <h1 style="font-size: 4.5rem;margin: 0;padding: 0;display: inline-block;" class="h1">Aucx</h1>
                         <small style="color: black;margin: 0;padding: 0;">Best Place to Bid</small>
             </div>
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12 mb-4 text-center">
-                                <p id="userPfBio">Profile biography</p>
+                                <p id="userPfBio">....</p>
                             </div>
                             <div class="col-lg-12 col-md-12 text-center">
                                 <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3" onclick="showEditProfileForm()">
@@ -78,7 +78,7 @@
                                 <input type="text" class="form-control" id="userSurname" onblur="checkUserSurname()" placeholder="Firma Faliyet Alanı">
                                 <small id="userSurnameError" class="form-text text-danger">Please fill the field.</small>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="userFacebook">Facebook</label>
                                 <input type="text" class="form-control" id="userFacebook" placeholder="https://www.facebook.com/">
                             </div>
@@ -93,18 +93,18 @@
                             <div class="form-group">
                                 <label for="userBio">Biography<span class="text-danger ml-1">*</span></label>
                                 <textarea class="form-control" id="userBio" rows="4" onblur="checkUserBio()"></textarea>
-                             </div>
-                            <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3" onclick="saveProfile()">Save</button>
+                             </div> -->
+                            <button type="button" id="save" class="btn btn-outline-primary btn-block text-uppercase mb-3">Save</button>
                             <button type="button" class="btn btn-outline-secondary btn-block text-uppercase" onclick="hideEditProfileForm()">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer class="center">
+            <small>&copy;2022 A4 Batch </small>
+        </footer>
     </div>
-    <footer class="center">
-        <small>&copy;2022 A4 Batch </small>
-    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    
@@ -126,7 +126,7 @@
 <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
 
 
-<!-- <script>
+<script>
     // Initialize Firebase
     // TODO: Replace with your project's customized code snippet
     const firebaseConfig = {
@@ -140,14 +140,14 @@
     measurementId: "G-6ZBVC5M3SY"
   };
     firebase.initializeApp(firebaseConfig);
-firebase.auth().onAuthStateChanged((user)=>{
-    if (user) {
     //   User is signed in.
-        let user = firebase.auth().currentUser;
-        let uid
-        if(user != null){
-            uid = user.uid;
-        }
+        var userData = <%-JSON.stringify(userData)%>;
+        let uid = userData.user_id;
+
+        $("#save").on("click",()=>{
+            saveProfile(uid);
+        })
+
         let firebaseRefKey = firebase.database().ref('Users').child(uid);
         firebaseRefKey.on('value', (dataSnapShot)=>{
             document.getElementById("userPfFullName").innerHTML = dataSnapShot.val().userFullName;
@@ -157,15 +157,10 @@ firebase.auth().onAuthStateChanged((user)=>{
             // document.getElementById("userPfFb").setAttribute('href', dataSnapShot.val().userFb);
             // document.getElementById("userPfTw").setAttribute('href', dataSnapShot.val().userTw);
             // document.getElementById("userPfGp").setAttribute('href', dataSnapShot.val().userGp);
-            // document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userBio;
+            document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userType;
 
         })
-    } else {
-    //   No user is signed in.
-    window.location.href="/signIn"
-    }
-});
- </script> -->
+ </script>
     
     <!-- Custom JavaScript -->
     <script src="/js/app.js"></script>

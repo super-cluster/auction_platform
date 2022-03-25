@@ -1,16 +1,26 @@
+body{
+    position: relative;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 .center{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-body{
-    background:linear-gradient(to bottom,rgba(255, 255, 255, 0.568),rgba(255, 255, 255, 0.664)),url("/images/bg.jpg");
+.container-fluid{
+    /* background:linear-gradient(to bottom,rgba(255, 255, 255, 0.548),rgba(255, 255, 255, 0.671)),url("/images/bg.jpg");
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat; */
+    min-height: 100vh;
 }
 .divCover{
-    background-image:linear-gradient(to right bottom,rgba(0, 145, 255, 0.13),rgba(255, 0, 255, 0.13)),url("/images/auction1.png");
+    background-image:linear-gradient(to right bottom,#5a68ff00,rgba(0, 110, 255, 0.13)),url("/images/auction1.png");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -18,7 +28,7 @@ body{
     border-top-left-radius: 20px;
 }
 .divCover1{
-    background-image:linear-gradient(to right bottom,rgba(0, 145, 255, 0.13),rgba(255, 0, 255, 0.13)),url("/images/signin.png");
+    background-image:linear-gradient(to right bottom,#5a68ff00,rgba(0, 110, 255, 0.13)),url("/images/signin.png");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -26,16 +36,121 @@ body{
     border-top-left-radius: 20px;
 }
 .divCover2{
-    background-image:linear-gradient(to right bottom,rgba(0, 145, 255, 0.13),rgba(255, 0, 255, 0.13)),url("/images/welcome.png");
+    background-image:linear-gradient(to right bottom,#5a68ff00,rgba(0, 110, 255, 0.13)),url("/images/welcome.png");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
 }
 footer{
     color: rgb(0, 132, 255);
     padding: 1rem;
+}
+/* .live-auctions,.upcoming-auctions{
+    margin: 1.5rem;
+} */
+#profile-menu{
+    display: none;
+    position: absolute;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.profile-menu-item{
+    display: block;
+    text-decoration: none;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: 1rem;
+}
+.profile-menu-item:hover{
+    text-decoration: none;
+}
+.profile-menu-item:hover{
+    background-color: rgb(240, 240, 240);
+}
+.profile-menu-item:hover:first-child{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.profile-menu-item:hover:last-child{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.profile{
+    cursor: pointer;
+}
+.mycard{
+    border: 1px solid rgb(69, 119, 255);
+    border-radius: 30px;
+    max-width: 400px;
+    box-shadow: 0 .2rem .5rem .1rem rgba(68, 68, 68, 0.137);
+}
+.mycard-title{
+    height: 150px;
+    /* border-bottom: 1px solid black; */
+    /* background:linear-gradient(to bottom,#a4b2ffd5,#81b3fdd5); */
+    background-color: rgb(245, 245, 245);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    color: rgb(124, 124, 124);
+}
+.sidebar{
+    background-color: #007BFF;
+    width: 40px;
+    transition: .5s ease-in-out;
+    position: fixed;
+    top: 10px;
+    left: 0px;
+    height: 40px;
+}
+.profile{
+    background-color: rgb(226, 226, 226);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+.mycard-body{
+    padding: .2rem;
+    display: flex;
+    background-color: white;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.mycard-body p{
+    margin: 0;
+    padding: .2rem;
+}
+.auction-link{
+    color: rgb(105, 105, 105);
+}
+b{
+    color: rgb(48, 41, 41);
+}
+.auction-link:hover{
+    text-decoration: none;
+    color: rgb(105, 105, 105);
+}
+.auction-list{
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-row-gap: 50px;
+    grid-column-gap: 20px;
+    min-height: 400px;
+}
+.item-img{
+    background: url("/images/welcome.png");
+    background-position: center;
+    background-size: cover;
+    height: 150px;
+    margin: 1rem;
+    width: 150px;
+}
+.item-info{
+    margin: .3rem;
 }
 @media(max-width:768px){
     .divCover{
@@ -59,5 +174,10 @@ footer{
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         
+    }
+    .auction-list{
+        /* display: grid; */
+        grid-template-columns: repeat(1,auto);
+        /* grid-gap: 10px; */
     }
 }

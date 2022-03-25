@@ -8,35 +8,13 @@ router.get("/", (req, res) => {
   res.render("login");
 });
 
-// const isAuthenticated = (req,res,next)=>{
-//   var user = admin
-//   .auth().createUser;
-//   if(user){
-//     res.render("profile");
-//   }else{
-//     next();
-//   }
-// }
-
-// router.use(isAuthenticated);
-
-// function checkAuthentication(req,res,next){
-//   var user = admin.auth().createUser;
-//   if(user){
-//       res.redirect("/profile")
-//   }else{
-
-//   }
-// }
-
-
 router.get("/signIn",(req, res) => {
   const sessionCookie = req.cookies.session || "";
   admin
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.redirect("/profile");
+      res.redirect("/dashboard");
     })
     .catch((error) => {
       res.render("signIn");
@@ -49,7 +27,7 @@ router.get("/signUp", (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.redirect("/profile");
+      res.redirect("/dashboard");
     })
     .catch((error) => {
       res.render("signUp");
@@ -63,12 +41,26 @@ router.get("/profile",function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render("profile");
+      res.render("profile",{userData:userData});
     })
     .catch((error) => {
       res.redirect("/signIn");
     });
 });
+
+router.get("/dashboard",(req,res)=>{
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render("dashBoard",{userData:userData});
+    })
+    .catch((error) => {
+      res.redirect("/signIn");
+    });
+})
+
 
 router.post("/sessionLogin", (req, res) => {
   console.log(req.body);
@@ -106,6 +98,7 @@ router.post("/getAuctions",(req,res)=>{
         snapshot.forEach(snap => {
             auctions.push(snap.val());
         });
+        console.log(auctions);
         res.send({result:auctions});
       });
 })
@@ -113,24 +106,26 @@ router.post("/getAuctions",(req,res)=>{
 
 
 router.post("/placeBid/:auctionNo",async (req,res)=>{
+
     var auctionName = req.params.auctionNo;
     var bidValue = parseInt(req.body.bidValue);
     var HighestBidValue= await getHighestBid(auctionName);
+    var userId = req.body.userData.user_id;
     // console.log(req.body.highestBid);
     var totalNoOfBids = await getTotalNoOfBids(auctionName);
     console.log(HighestBidValue,bidValue);
    if(access===0){
      access=1;
-    if(HighestBidValue.value<bidValue && HighestBidValue.bidderId!=="bid_1"){
+    if(HighestBidValue.value<bidValue && HighestBidValue.bidderId!==userId){
       var firstBid = HighestBidValue.type==="highestBid";
       var time = new Date().toUTCString();
 
-      var id = db.ref(`auctions/${auctionName}/item/bidderList/bid_1`).push().key;
+      var id = db.ref(`auctions/${auctionName}/item/bidderList/${userId}`).push().key;
 
       var updatedUserData = {
         highestBid:{
           value:bidValue,
-          bidderId:"bid_1",
+          bidderId:userId,
           time:time
         },
         count:totalNoOfBids+1
@@ -165,7 +160,7 @@ router.post("/placeBid/:auctionNo",async (req,res)=>{
           access=0;
           res.send({message:"not ok"});
         }else{
-          db.ref(`auctions/${auctionName}/item/biddersList/bid_1/${id}`).set({
+          db.ref(`auctions/${auctionName}/item/biddersList/${userId}/${id}`).set({
             bidValue:bidValue,
             time:time,
             previousHighestBidValue:HighestBidValue.value,
