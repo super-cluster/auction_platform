@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Sweet Alert JavaScript -->
+    <script src="/js/sweetalert2.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"
+  ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+    <!-- Nunito Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700"
+      rel="stylesheet"
+    />
+
+    <title>Add an item</title>
+  </head>
+  <body>
+    <div class="container-fluid center">
+      <div class="row mx-1">
+        <div
+          class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary"
+        >
+          <h1
+            style="
+              font-size: 4.5rem;
+              margin: 0;
+              padding: 0;
+              display: inline-block;
+            "
+            class="h1"
+          >
+            Aucx
+          </h1>
+          <small style="color: black; margin: 0; padding: 0"
+            >Best Place to Bid</small
+          >
+        </div>
+        <div
+          style="border-radius: 20px"
+          class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 bg-white shadow mb-5 border border-primary"
+        >
+          <div class="row">
+            <!-- <div class="col-lg-6 col-md-6 p-4 divCover1"></div> -->
+            <div class="col-lg-12 col-md-12 p-lg-5 p-md-5 px-3 py-4">
+              <div id="signInForm">
+                <h2
+                  class="h2 text-center text-dark mb-3"
+                  style="text-align: center"
+                >
+                  Add an Item
+                </h2>
+                <form>
+                <div class="form-group">
+                  <label for="text"
+                    >Item Name<span class="text-danger ml-1">*</span></label
+                  >
+                  <input required
+                    type="text"
+                    class="form-control"
+                    id="itemName"
+                    placeholder="Auction Item"
+                  />
+                  <!-- <small id="userSIEmailError" class="form-text text-secondary"
+                    >Please check your login information.</small
+                  > -->
+                </div>
+                <div class="form-group">
+                  <label for="num"
+                    >Base Price<span class="text-danger ml-1">*</span></label
+                  >
+                  <input required
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    placeholder="Enter the base price for Item"
+                  />
+                  <!-- <small
+                    id="userSIPasswordError"
+                    class="form-text text-secondary"
+                    >Please check your password.</small
+                  > -->
+                  <div class="form-group" style="margin-top: 1em;">
+                    <label for="Desc"
+                      >Description<span class="text-danger ml-1">*</span></label
+                    >
+                    <input required
+                      type="text"
+                      class="form-control"
+                      id="desc"
+                      placeholder="Enter the Descprition of the item"
+                    />
+                </div>
+                <div class="form-group">
+                  <label for="img"
+                    >Enter the images<span class="text-danger ml-1">*</span></label
+                  >
+                  <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                    class="form-control"
+                    id="img1"
+                    />
+                    
+                    <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                    class="form-control"
+                    id="img2"
+                />
+
+                    <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                    class="form-control"
+                    id="img3"
+                  />
+                  
+                <button style="margin-top: 1em;"
+                  type="submit"
+                  class="btn submit btn-outline-primary text-uppercase mb-3"
+                >
+                  Submit
+                </button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <footer class="center">
+      <small>&copy;2022 A4 Batch </small>
+    </footer> -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script>
+       const firebaseConfig = {
+        apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+        authDomain: "aucx-8f0c7.firebaseapp.com",
+        databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+        projectId: "aucx-8f0c7",
+        storageBucket: "aucx-8f0c7.appspot.com",
+        messagingSenderId: "661074584627",
+        appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+        measurementId: "G-6ZBVC5M3SY",
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      var user = <%-JSON.stringify(userData)%>;
+
+      $(".submit").on('click',async (e)=>{
+        e.preventDefault();
+        var file1 = $(`#img1`).prop(`files`)[0];
+        var file2 = $(`#img2`).prop(`files`)[0];
+        var file3 = $(`#img3`).prop(`files`)[0];
+        var name = $("#itemName").val();
+        var price = $("#price").val();
+        var desc = $("#desc").val();
+        var ref = firebase.database().ref("Requests");
+        var key = ref.push().key;
+        var top = await upload(file1,`top${key}`)
+        var front = await upload(file2,`front${key}`)
+        var back = await upload(file3,`back${key}`)
+
+        var object = {
+          name:name,
+          desc:desc,
+          base:price,
+          itemId:key,
+          seller:user.user_id,
+          status:"pending",
+          imageTop:top,
+          imageBack:back,
+          imageFront:front
+        }
+
+        console.log(object);
+
+        ref.child(key).set(object);
+
+      })
+
+
+      function upload(file1,name){
+        return new Promise((resolve,reject)=>{
+          var storageRef = firebase.storage().ref();
+        var uploadTask = storageRef.child(`images/${name}.jpg`).put(file1);
+        
+ uploadTask.on('state_changed', 
+  (snapshot) => {
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        console.log('Upload is paused');
+        break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        console.log('Upload is running');
+        break;
+    }
+  }, 
+  (error) => {
+  }, 
+  () => {
+    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+      resolve(downloadURL);
+    });
+  }
+);
+        })
+       
+        
+      }
+
+     
+
+
+    </script>
+  </body>
+</html>

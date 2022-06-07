@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Aucx</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Sweet Alert JavaScript -->
+    <script src="/js/sweetalert2.js"></script>
+    <script src="/js/utility.js"></script>
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+      crossorigin="anonymous"
+    />
+    <!-- Nunito Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700"
+      rel="stylesheet"
+    />
+  
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/4062487ef9.js" crossorigin="anonymous"></script>
+
+    <style>
+        h3{
+            letter-spacing: .2rem;
+        }
+    </style>
+  </head>
+  <body style="display: flex">
+    <div class="notification">
+      <div class="message">
+          Hi I am your guide !
+      </div>
+      <i onclick="closeNotification()" class="fa-solid fa-xmark"></i>
+  </div>
+    <div class="sidebar">
+      <div class="option">
+        <h2
+          style="
+            pointer-events: none;
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+          "
+        >
+          Aucx
+        </h2>
+        <ul class="option-list">
+          <li class="option-list-item">
+            <i class="fa-solid fa-rectangle-history"></i>
+            <a href="">&nbsp;Home</a>
+          </li>
+          <li class="option-list-item">
+            <i class="fa-solid fa-rectangle-history"></i>
+            <a href="">&nbsp;Winner List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div
+          class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary"
+        >
+          <h1
+            style="
+              font-size: 4.5rem;
+              margin: 0;
+              padding: 0;
+              display: inline-block;
+            "
+            class="h1"
+          >
+            Aucx
+          </h1>
+          <small style="color: black; margin: 0; padding: 0"
+            >Best Place to Bid</small
+          >
+        </div>
+        
+        <div>
+          <div class="profile"></div>
+          <div id="profile-menu">
+            <a class="profile-menu-item" href="/profile">Profile</a>
+            <a class="profile-menu-item" href="/sessionLogout">Logout</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="auction-info-container">
+        <div class="mycard1">
+          <div class="mycard-title center">
+            <h2 id="auction-title"><%=auction.name%></h2>
+            <small class="time-remaining"
+              ><span id="<%=auction.name%>hours"></span>:<span
+                id="<%=auction.name%>mins"
+              ></span
+              >:<span id="<%=auction.name%>secs"></span
+            ></small>
+            <small style="position:absolute;bottom:0;right:10px"><b>Seller : </b><%=auction.seller%></small>
+          </div>
+          <div class="mycard-body">
+            <div class="item-image-container">
+              <div class="item-img" style='background: url("<%=auction.item.imageFront%>");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 125px;
+                width: 125px;
+                border-radius: 50%;
+                border: 2px solid #5f8aff;
+              '></div>
+            </div>
+            <div class="item-info">
+              <div style="font-size:1.4rem"><b>Item Name : </b><span id="item-name">
+                <div class="loading1">
+                  <div class="loading1-text">
+                    <span class="loading1-text-words">L</span>
+                    <span class="loading1-text-words">O</span>
+                    <span class="loading1-text-words">A</span>
+                    <span class="loading1-text-words">D</span>
+                    <span class="loading1-text-words">I</span>
+                    <span class="loading1-text-words">N</span>
+                    <span class="loading1-text-words">G</span>
+                  </div>
+                </div>
+              </span></div>
+              <div style="margin-right: 1rem;display: inline-block;"><b>Current value : </b><span id="current-bid">
+                <div class="loading1">
+                  <div class="loading1-text">
+                    <span class="loading1-text-words">L</span>
+                    <span class="loading1-text-words">O</span>
+                    <span class="loading1-text-words">A</span>
+                    <span class="loading1-text-words">D</span>
+                    <span class="loading1-text-words">I</span>
+                    <span class="loading1-text-words">N</span>
+                    <span class="loading1-text-words">G</span>
+                  </div>
+                </div>
+              </span></div>
+              <div><b>Description : </b> <span id="item-desc">
+                <div class="loading1">
+                  <div class="loading1-text">
+                    <span class="loading1-text-words">L</span>
+                    <span class="loading1-text-words">O</span>
+                    <span class="loading1-text-words">A</span>
+                    <span class="loading1-text-words">D</span>
+                    <span class="loading1-text-words">I</span>
+                    <span class="loading1-text-words">N</span>
+                    <span class="loading1-text-words">G</span>
+                  </div>
+                </div>
+              </span></div>
+            </div>
+          </div>
+          <!-- <%=auction.item.imageTop%> -->
+          <h3>Item images</h3>
+          <div class="item-image">
+            <img  src="<%=auction.item.imageFront%>" id="image-front" style='width: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            /* background-color: rgb(240, 240, 240); */
+            /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+            height: 300px;
+            /* border: 1px solid rgb(0, 110, 255); */
+            margin: 5px;
+            border-radius: 1px;'>
+            <img  src="<%=auction.item.imageBack%>" id="image-back" style='width: 100%;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              /* background-color: rgb(240, 240, 240); */
+              /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+              height: 300px;
+              /* border: 1px solid rgb(0, 110, 255); */
+              margin: 5px;
+              border-radius: 1px;'>
+              <img src="<%=auction.item.imageTop%>" id="image-top" style='width: 100%;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 300px;
+                /* border: 1px solid rgb(0, 110, 255); */
+                margin: 5px;
+                border-radius: 1px;'>
+          </div>
+        </div>
+      </div>
+      <div class="place-bid">
+        <h3>Place a Bid</h3>
+        <div
+          style="color: rgb(175, 175, 175); margin: 0; font-size: 2rem"
+          id="highest-bid"
+        >
+          <span>Current Highest Bid :</span> <span>
+            <div class="loading1">
+              <div class="loading1-text">
+                <span class="loading1-text-words">L</span>
+                <span class="loading1-text-words">O</span>
+                <span class="loading1-text-words">A</span>
+                <span class="loading1-text-words">D</span>
+                <span class="loading1-text-words">I</span>
+                <span class="loading1-text-words">N</span>
+                <span class="loading1-text-words">G</span>
+              </div>
+            </div>
+          </span>
+        </div>
+        <form id="place-bid-form">
+          <div class="form-group">
+            <label for="bidValue"
+              >Enter bid value<span class="text-danger ml-1">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="bidValue"
+              placeholder="Bid Value"
+            />
+            <small id="bid-info" class="form-text text-secondary"
+              >Enter a bid value to participate.</small
+            >
+          </div>
+          <button
+            type="button"
+            id="submit"
+            class="btn btn-outline-primary text-uppercase mb-3"
+            onclick="placeBid()"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div class="bid-history">
+        <h3>Bid History</h3>
+        <div id="chart" style="margin-bottom: 2rem">
+          <canvas id="myChart"></canvas>
+        </div>
+        <table class="bid-table">
+          <thead>
+            <tr>
+              <th>Serial No.</th>
+              <th>Bidder Name</th>
+              <th>Bid Value</th>
+              <th>Time of Bid</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      
+      <div class="winner-list">
+        <h3>Winner</h3>
+          <div class="center">
+        <div class="win-image"></div>
+          Winner will be announced soon.
+          </div>
+      </div>
+
+      <div class="payment-section">
+        <h3>Payment</h3>
+          <div class="center" style="flex-direction: row;justify-content: space-around;border: solid blue 2px;
+          border-radius: 2rem;">
+            <div class="pay">
+              <div style="font-size:2rem;">Amount to be paid : <span id="amount"><div class="loading1">
+                <div class="loading1-text">
+                  <span class="loading1-text-words">L</span>
+                  <span class="loading1-text-words">O</span>
+                  <span class="loading1-text-words">A</span>
+                  <span class="loading1-text-words">D</span>
+                  <span class="loading1-text-words">I</span>
+                  <span class="loading1-text-words">N</span>
+                  <span class="loading1-text-words">G</span>
+                </div>
+              </div></span></div>
+                <button type="button" id="pay-btn">Pay Now</button>
+         <small>Paid status : <span id="paid">Not paid</span></small>
+            </div>
+        <div class="pay-image"></div>
+              </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src="/js/okzoom.js"></script>
+
+    <script>
+      // Initialize Firebase
+      // TODO: Replace with your project's customized code snippet
+      const firebaseConfig = {
+        apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+        authDomain: "aucx-8f0c7.firebaseapp.com",
+        databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+        projectId: "aucx-8f0c7",
+        storageBucket: "aucx-8f0c7.appspot.com",
+        messagingSenderId: "661074584627",
+        appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+        measurementId: "G-6ZBVC5M3SY",
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+//payClick
+// var pay = $("#pay-btn").on('click',()=>{
+//   console.log("i got clicked");
+// })
+
+//
+              var auctionData = <%-JSON.stringify(auction)%>;
+              var user = <%-JSON.stringify(user)%>;
+              console.log(user);
+              if(user.userType!="Bidder"){
+                    $(".place-bid").css({
+                          "display":"none"
+                    })
+
+              }
+              var object = isLive(auctionData);
+                  if(!object.isLive){
+                      $(".place-bid").css({
+                          "display":"none"
+                      })
+                      $(".time-remaining").html(auctionData.startDate)
+                  }
+      function placeBid(){
+                  var bidValue = $("#bidValue").val();
+                  $.ajax({
+                      url:`/placeBid/${auctionData.name}`,
+                      method:"POST",
+                      data:{bidValue:bidValue},
+                      success:function(result,status,xhr){
+                          if(result.message==="ok")
+                            customNotify("Bid placed successfully.")
+                          else if(result.message==="value")
+                            customNotify("Place greater bid.");
+                          else if(result.message==="wait"){
+                            customNotify("Try again!");
+                          }
+                          else if(result.message==="highest"){
+                              customNotify("Your's bid is highest at the moment!");
+                          }else
+                          customNotify("Error! Try again")
+                          $("#bidValue").val("")
+                      },
+                      error:function(xhr,status,error){
+                          console.log(error);
+                      }
+                  })
+
+          }
+          $(document).ready(function() {
+              $('#image-front').okzoom({
+                width:500,
+                height: 500,
+                round: false,
+                background: "#fff",
+                // backgroundRepeat: "repeat",
+                shadow: "0 0 5px #000",
+                border: "1px solid black"
+              });
+              $('#image-top').okzoom({
+                width: 500,
+                height: 500,
+                round: false,
+                background: "#fff",
+                shadow: "0 0 5px #000",
+                border: "1px solid black"
+              });
+              $('#image-back').okzoom({
+                width: 500,
+                height: 500,
+                round: false,
+                background: "#fff",
+                // backgroundRepeat: "repeat",
+                shadow: "0 0 5px #000",
+                border: "1px solid black"
+              });
+          })
+
+
+
+
+              var toggle1 = 0 ;
+              $(".profile").on("click",(e)=>{
+                  if(toggle1===0){
+                      toggle1=1;
+                      var x = e.target.offsetTop;
+                      var y = e.target.offsetWidth;
+                      $("#profile-menu").css({"display":"block","margin":"1rem"});
+                      setTimeout(()=>{
+                          $("#profile-menu").css({"display":"none"});
+                      },3500)
+                  }else{
+                      toggle1=0;
+                      var x = e.target.offsetTop;
+                      var y = e.target.offsetWidth;
+                      $("#profile-menu").css({"display":"none"});
+                  }
+                  // $("#profile-menu").css("right",y);
+                  console.log(x,y);
+              })
+              var toggle = 0;
+              $(".sidebar").on('click',()=>{
+                  if(toggle===0){
+                      toggle=1;
+                      $(".sidebar").css({
+                          "width":"20%",
+                          "top":"10px",
+                          "left":"0",
+                          "background-color":"#007BFF"
+                      });
+                      $(".option").css({
+                          "display":"block"
+                      })
+                  }
+                  else{
+                      toggle=0;
+                      $(".sidebar").css({
+                          "width":"40px",
+                          "top":"10px",
+                          "left":"0px",
+                          "bottom":"10px",
+                          "background-color":"#007BFF"
+
+                      });
+                      $(".option").css({
+                          "display":"none"
+                      })
+                  }
+              })
+              $("#item-name").html(auctionData.item.name)
+              //     $("#current-bid").html(auctionData.item.hasOwnProperty('highestBid')?numFormatter(auctionData.item.highestBid.value)+" ₹":numFormatter(auctionData.item.reserve)+" ₹")
+              //     $("#highest-bid").html(auctionData.item.hasOwnProperty('highestBid')?"Current Highest Bid : "+numFormatter(auctionData.item.highestBid.value)+" ₹":"Base Price : "+numFormatter(auctionData.item.reserve)+" ₹")
+                  $("#item-desc").html(auctionData.item.desc)
+
+              var object;
+              var highestBid=-Infinity;
+              firebase.database().ref(`auctions/${auctionData.name}/`).on("value",(snapshot)=>{
+                 
+                  var oldcanv = document.getElementById('myChart');
+                  if(oldcanv!=undefined)
+                  document.getElementById("chart").removeChild(oldcanv)
+
+                  var auctionData = snapshot.val();
+                  object={
+                      value:auctionData.item.reserve,
+                      type:"reserve"
+                  }
+                  var html;
+                  $("#item-name").html(auctionData.item.name)
+                  $("#item-desc").html(auctionData.item.desc)
+                  console.log(auctionData,object);
+                  if(auctionData.item.hasOwnProperty('biddersList')){
+
+                  var biddersList = Object.keys(auctionData.item.biddersList);
+                  var bidsHistory = [];
+                  var label = [],datas=[];
+                  biddersList.forEach(bidder => {
+                  var bidsByBidderKeys = Object.keys(auctionData.item.biddersList[bidder]);
+                  bidsByBidderKeys.forEach((bid) => {
+                     // console.log(bid);
+                     if(highestBid<auctionData.item.biddersList[bidder][bid].bidValue){
+                      object ={
+                        value:auctionData.item.biddersList[bidder][bid].bidValue,
+                        bidderId:bid,
+                        time:auctionData.item.biddersList[bidder][bid].time,
+                        type:"highestBid"
+                    }
+                    highestBid = auctionData.item.biddersList[bidder][bid].bidValue;
+                     }
+                      var now = new Date().getTime();
+                      var time = now - Date.parse(auctionData.item.biddersList[bidder][bid].time);
+                      var bidObject = {
+                          "name":bidder,
+                          "value":auctionData.item.biddersList[bidder][bid].bidValue,
+                          "mostRecent":time,
+                          "time":auctionData.item.biddersList[bidder][bid].time
+                      }
+                      bidsHistory.push(bidObject);
+                      // label.push(bid.substring(bid.length-4));
+                      // datas.push(auctionData.item.biddersList[bidder][bid].bidValue);
+                  });
+                  });
+                  if(highestBid===-Infinity){
+                    object={
+                      value:auctionData.item.reserve,
+                      type:"reserve"
+                    }
+                    console.log(object);
+                  }
+                  bidsHistory.sort(comapre);
+                  // $("#current-bid").html(auctionData.item.hasOwnProperty('highestBid')?numFormatter(auctionData.item.highestBid.value)+" ₹":numFormatter(auctionData.item.reserve)+" ₹")
+                  // $("#highest-bid").html(auctionData.item.hasOwnProperty('highestBid')?"Current Highest Bid : "+numFormatter(auctionData.item.highestBid.value)+" ₹":"Base Price : "+numFormatter(auctionData.item.reserve)+" ₹")
+                  
+
+                 
+
+                  bidsHistory.forEach((bids,index) => {
+                      label.unshift(index+1);
+                      datas.unshift(bids.value);
+                  });
+
+                  if(label.length>0){
+                      var canv = document.createElement('canvas');
+                      canv.id = 'myChart';
+                      document.getElementById("chart").appendChild(canv);
+                  }
+
+              console.log(datas,label);
+
+              const data = {
+                labels: label,
+                datasets: [{
+                  label: 'Bidding Data',
+                  backgroundColor: '#007BFF',
+                  borderColor: '#007BFF',
+                  data: datas,
+                }]
+              };
+
+              const config = {
+                type: 'line',
+                data: data,
+                options: {}
+              };
+              const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+
+              if(bidsHistory.length === 0){
+                  console.log("hii");
+                  $(".bid-table>tbody").html("No data to show.")
+              }else{
+                  console.log("wyy");
+                  html="";
+              bidsHistory.forEach((bids,index) => {
+                  html+= `
+                  <tr>
+                                      <td>${index+1}.</td>
+                                      <td>${bids.name}</td>
+                                      <td>${numFormatter(bids.value)} ₹</td>
+                                      <td>${bids.time}</td>
+                                  </tr>
+                  `;
+              });
+              $(".bid-table>tbody").html(html);
+             }
+          }else{
+              console.log(" bye hii");
+              $(".bid-table>tbody").html("No data to show.")
+          }
+          $("#current-bid").html(numFormatter(object.value)+" ₹")
+          $("#amount").html(numFormatter(object.value)+" ₹")
+          $("#highest-bid").html(object.type==="highestBid"?"Current Highest Bid : "+numFormatter(object.value)+" ₹":"Base Price : "+numFormatter(object.value)+" ₹")
+                  
+
+              })
+
+
+              function comapre(a,b){
+                  return a.mostRecent-b.mostRecent;
+              }
+              if(object.isLive)
+              countDown1(auctionData);
+              
+              function closeNotification(){
+               $(".notification").css({
+                   "display":"none"
+                })
+              }
+              function customNotify(msg){
+                $(".notification").css({
+                                 "display":"flex",
+                                 "background-color":"white",
+                                 
+                          })
+                          $(".message").html(`${msg}`);
+              }
+
+              //razorpay
+
+
+              
+
+
+document.querySelector('#pay-btn').onclick = function(e){
+// console.log(auctionData);
+  $.ajax({
+                      url:`/createOrder`,
+                      method:"POST",
+                      data:{amount:object.value*1000},
+                      success:function(result,status,xhr){
+
+                        var options = {
+                            "key": "rzp_test_Le7cgiEBedj3MT", // Enter the Key ID generated from the Dashboard
+                            "currency": "INR",
+                            "name": "Aucx",
+                            "description": auctionData.name,
+                            "image": "https://example.com/your_logo",
+                            "order_id": result.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                            "handler": function (response){
+                                alert(response.razorpay_payment_id);
+                                alert(response.razorpay_order_id);
+                                alert(response.razorpay_signature)
+                                $.ajax({
+                                  url:"/api/payment/verify",
+                                  method:"POST",
+                                  data:{razorpay_order_id:result.order_id,razorpay_payment_id:response.razorpay_payment_id,razorpay_signature:response.razorpay_signature},
+                                  success:function(result,status,xhr){
+                                    console.log(result);
+                                      if(result.status==="success"){
+                                        console.log(result);
+                                      }
+                                  },
+                                  error:function(xhr,status,error){
+                                  console.log(error);
+                                 }
+                                })
+                            },
+                            "prefill": {
+                                "name": user.userFullName,
+                                "email": user.userEmail,
+                                "contact": user.phoneNumber
+                            },
+                            "theme": {
+                                "color": "blue"
+                            }
+                          };
+
+                          var rzp1 = new Razorpay(options);
+                          rzp1.on('payment.failed', function (response){
+                              alert(response.error.code);
+                              alert(response.error.description);
+                              alert(response.error.source);
+                              alert(response.error.step);
+                              alert(response.error.reason);
+                              alert(response.error.metadata.order_id);
+                              alert(response.error.metadata.payment_id);
+                          });
+                          rzp1.open();
+                          e.preventDefault();
+                          
+                      },
+                      error:function(xhr,status,error){
+                          console.log(error);
+                      }
+                  })
+
+}
+
+              //
+       
+    </script>
+  </body>
+</html>

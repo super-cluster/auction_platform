@@ -92,6 +92,7 @@ function signUp(){
     var userSurname = document.getElementById("userSurname").value;
     var userEmail = document.getElementById("userEmail").value;
     var userPassword = document.getElementById("userPassword").value;
+    var userPhone = document.getElementById("userPhone").value;
     var userType = document.getElementById("userType").value;
     var userFullNameFormate = /^([A-Za-z.\s_-])/;    
     var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -100,6 +101,7 @@ function signUp(){
     var checkUserFullNameValid = userFullName.match(userFullNameFormate);
     var checkUserEmailValid = userEmail.match(userEmailFormate);
     var checkUserPasswordValid = userPassword.match(userPasswordFormate);
+    var checkPhoneNumber = userPhone.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
 
     if(checkUserFullNameValid == null){
         return checkUserFullName();
@@ -109,21 +111,29 @@ function signUp(){
         return checkUserEmail();
     }else if(checkUserPasswordValid == null){
         return checkUserPassword();
-    }else{
-        firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((success) => {
+    }else if(checkPhoneNumber == null){
+        return checkUserPhone();
+    }
+    // console.log(userPassword,"sidbfhb");
+    else{
+        firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((userData) => {
+            console.log(userData);
             var user = firebase.auth().currentUser;
+            console.log(user);
             var uid;
             if (user != null) {
                 uid = user.uid;
-            }
-            var firebaseRef = firebase.database().ref(`Users`);
-            var userData = {
+            }var userData = {
                 userFullName: userFullName,
                 userSurname: userSurname,
                 userEmail: userEmail,
                 uid:uid,
-                userType:userType
+                userType:userType,
+                phoneNumber:userPhone
             }
+            user.sendEmailVerification().then(()=>{
+                console.log("ok");
+                var firebaseRef = firebase.database().ref(`Users`);
             firebaseRef.child(uid).set(userData,error=>{
                 if(error){
                     console.log(error);
@@ -134,7 +144,7 @@ function signUp(){
                     //         method:"POST",
                     //         data:{idToken:idToken},
                     //         success:function(result,status,xhr){
-                                swal('Your Account Created','Your account was created successfully, you can log in now.',
+                                swal('Your Account Created','Your account was created successfully, you can log in now. After verifying your Email',
                                 ).then((value) => {
                                     setTimeout(function(){
                                         firebase.auth().signOut();
@@ -149,6 +159,8 @@ function signUp(){
                     // })
                 }
             })
+            })
+            
         }).catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
@@ -194,6 +206,21 @@ function checkUserSIPassword(){
         document.getElementById("userSIPasswordError").style.display = "none";
     }
 }
+function checkUserPhone(){
+    var userPhone = document.getElementById("userPhone");
+    var userPhoneFormat = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    var flag;
+    if(userPhone.value.match(userPhoneFormat)){
+        flag = false;
+    }else{
+        flag = true;
+    }
+    if(flag){
+        document.getElementById("userPhoneError").style.display = "block";
+    }else{
+        document.getElementById("userPhoneError").style.display = "none";
+    }
+}
 // xxxxxxxxxx Check email or password exsist in firebase authentication xxxxxxxxxx    
 function signIn(){
     var userSIEmail = document.getElementById("userSIEmail").value;
@@ -210,6 +237,7 @@ function signIn(){
         return checkUserSIPassword();
     }else{
         firebase.auth().signInWithEmailAndPassword(userSIEmail, userSIPassword).then(({user}) => {
+            if(user.emailVerified){
             user.getIdToken().then((idToken)=>{
                 $.ajax({
                     url:"/sessionLogin",
@@ -230,6 +258,13 @@ function signIn(){
                     }
                 })
             })
+        }else{
+            swal({
+                type: 'error',
+                title: "Verify your Email",
+                text: "Activation link has been sent to your mail",
+            })
+        }
             
         }).catch((error) => {
             // Handle Errors here.

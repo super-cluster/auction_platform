@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Aucx</title>
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <!-- Custom CSS -->
+     <link rel="stylesheet" href="../css/style.css">
+     <!-- Sweet Alert JavaScript -->
+     <script src="/js/sweetalert2.js"></script>
+     <script src="/js/utility.js"></script>
+     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <!-- Fontawesome CSS -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+     <!-- Nunito Google Font -->
+     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+    <script src="https://kit.fontawesome.com/4062487ef9.js" crossorigin="anonymous"></script>
+</head>
+<body style="display: flex;">
+    <div class="notification">
+        <div class="message">
+            Hi I am your guide !
+        </div>
+        <i onclick="closeNotification()" class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="overlay-container">
+    <div class="overlay">
+        <div class="row" style="margin: 2rem;">
+            <!-- <div class="col-lg-6 col-md-6 p-4 divCover1"></div> -->
+            <div class="col-lg-12 col-md-12 p-lg-5 p-md-5 px-3 py-4">
+              <div id="signInForm">
+                  <div style="display: flex;justify-content: space-between;align-items: center;">
+                <h2
+                  class="h2 text-center text-dark mb-3"
+                  style="text-align: center"
+                >
+                  Create an auction
+                </h2>
+                <i style="cursor: pointer;" id ="close" class="fa-solid fa-xmark"></i>
+            </div>
+                <form>
+                <div class="form-group">
+                  <label for="text"
+                    >Item Name<span class="text-danger ml-1">*</span></label
+                  >
+                  <input required
+                    type="text"
+                    class="form-control"
+                    id="itemName"
+                    placeholder="Auction Item"
+                  />
+                  <!-- <small id="userSIEmailError" class="form-text text-secondary"
+                    >Please check your login information.</small
+                  > -->
+                </div>
+                <div class="form-group">
+                  <label for="num"
+                    >Base Price<span class="text-danger ml-1">*</span></label
+                  >
+                  <input required
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    placeholder="Enter the base price for Item"
+                  />
+                  <!-- <small
+                    id="userSIPasswordError"
+                    class="form-text text-secondary"
+                    >Please check your password.</small
+                  > -->
+                  <div class="form-group" style="margin-top: 1em;">
+                    <label for="Desc"
+                      >Description<span class="text-danger ml-1">*</span></label
+                    >
+                    <textarea required
+                      type="text"
+                      class="form-control"
+                      rows="5"
+                      id="desc"
+                      placeholder="Enter the Descprition of the item"
+                    ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="img"
+                    >Enter the images<span class="text-danger ml-1">*</span></label
+                  >
+                  <div class="form-group justify">
+                    <label for="img"
+                    >Top Image<span class="text-danger ml-1">*</span></label
+                  > 
+                  <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                   
+                    id="img1"
+                    />
+                  </div>
+
+                  <div class="form-group justify">
+                    <label for="img"
+                    >Front Image<span class="text-danger ml-1">*</span></label
+                  > 
+                  <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                   
+                    id="img2"
+                    />
+                  </div>
+                  <div class="form-group justify">
+                    <label for="img"
+                    >Back Image<span class="text-danger ml-1">*</span></label
+                  > 
+                  <input required style="margin-top: 2px;"
+                    type="file"
+                    accept="image"
+                   
+                    id="img3"
+                    />
+                    </div>
+                  </div>
+                  <div class="justify">
+                <button style="margin-top: 1em;"
+                  type="submit"
+                  class="btn submit btn-outline-primary text-uppercase mb-3"
+                >
+                  Submit
+                </button>
+                <div class="loading"></div>
+            </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+        <div class="sidebar">
+            <div class="option">
+                <h2
+                  style="
+                    pointer-events: none;
+                    color: white;
+                    text-align: center;
+                    margin-top: 1rem;
+                  "
+                >
+                  Aucx
+                </h2>
+                <ul class="option-list">
+                  <li class="option-list-item">
+                    <i class="fa-solid fa-rectangle-history"></i>
+                    <a style="cursor: pointer;" id="open">&nbsp;Create an auction</a>
+                  </li>
+                </ul>
+              </div>
+        </div>
+
+        <div class="wallet">
+            <div class="wallet-container">
+                <h2
+                style="
+                  pointer-events: none;
+                  color: white;
+                  margin-top: 1rem;
+                  margin-left: 1rem;
+                "
+              >
+                Aucx Wallet
+              </h2>
+                <div class="wallet-details">
+                    <!-- <h2>wallet</h2> -->
+                    <p style="margin: 0;letter-spacing: 2px;padding: 0;font-size: 1.3rem;color: black;">Available Balance</p>
+                    <p style="margin: 0;padding: 0;font-size: 1.5rem;" ><b>₹ <span id="avial-money">1000</span></b></p>
+                </div>
+                <div class="wallet-option">
+                    <a style="text-decoration: none;color: rgb(42, 179, 233);" href="">
+                          <p id="option-1"><i class="fa-solid fa-money-bill-transfer"></i> &nbsp;Send Money from Wallet to Bank</p>
+                    </a>
+                </div>
+            
+              </div>
+        </div>
+        <div class="container" >
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary">
+                    <h1 style="font-size: 4.5rem;margin: 0;padding: 0;display: inline-block;" class="h1">Aucx</h1>
+                            <small style="color: black;margin: 0;padding: 0;">Best Place to Bid</small>
+                </div>
+                <div>
+                <div class="profile"></div>
+                <div id="profile-menu">
+                    <a class="profile-menu-item" href="/profile">Profile</a>
+                    <a class="profile-menu-item" href="/sessionLogout">Logout</a>
+                  </div> 
+                </div>
+            </div>
+            <div class="nav">
+                <button id="defaultOpen" class="tablink" onclick="openPage('live-auctions', this)">Live Auction</button>
+                <button class="tablink" onclick="openPage('upcoming-auctions', this)">Upcoming Auction</button>
+                <button class="tablink" onclick="openPage('pending-auctions', this)">Pending Auction</button>
+                <button class="tablink" onclick="openPage('finished-auctions', this)">Finished Auction</button>
+                <button class="tablink" onclick="openPage('rejected-auctions', this)">Rejected Auction</button>
+                 
+            </div>
+
+                <div class="auction live-auctions" id="defaultOpen">
+                    <h2>Your Live Auctions</h1>
+                        <div class="info center">
+                            <div class="not-found"></div>
+                            No auction found.
+                        </div>
+                    <ul class="auction-list">
+                        <!-- <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+
+
+
+                <div class="auction upcoming-auctions">
+                    <h2>Your Upcoming Auctions</h1>
+                        <div class="info center">
+                            <div class="not-found"></div>
+                            No auction found.
+                        </div>
+                    <ul class="auction-list">
+                        <!-- <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="auction-list-item">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">Auction Name</h3>
+                                    <small class="time-remaining">12:00</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img">
+
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                                <p><b>Item Name : </b>Item 1</p>
+                                                <p><b>HighestBid : </b>150</p>
+                                                <p><b>Description : </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ullam aliquam nisi sint nobis culpa rerum laudantium molestias .</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <div class="auction finished-auctions">
+                    <h2>Finished Auctions</h1>
+                        <div class="info center">
+                            <div class="not-found"></div>
+                            No auction found.
+                        </div>
+                    <ul class="auction-list">
+                        </ul>
+                </div>
+
+                <div class="auction pending-auctions">
+                    <h2>Pending Auctions</h1>
+                        <div class="info center">
+                            <div class="not-found"></div>
+                            No pending auction found.
+                        </div>
+                    <ul class="auction-list">
+                        </ul>
+                </div>
+                <div class="auction rejected-auctions">
+                    <h2>Rejected Auctions</h1>
+                        <div class="info center">
+                            <div class="not-found"></div>
+                            No rejeted auction found.
+                        </div>
+                    <ul class="auction-list">
+                        </ul>
+                </div>
+                <!-- <div id="container" class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary">
+                  
+                </div> -->
+
+        </div>
+               
+    
+<script>
+  // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  const firebaseConfig = {
+  apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+  authDomain: "aucx-8f0c7.firebaseapp.com",
+  databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+  projectId: "aucx-8f0c7",
+  storageBucket: "aucx-8f0c7.appspot.com",
+  messagingSenderId: "661074584627",
+  appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+  measurementId: "G-6ZBVC5M3SY"
+};
+  firebase.initializeApp(firebaseConfig);
+</script>
+    <script>
+        var toggle1 = 0 ;
+        $(".profile").on("click",(e)=>{
+            if(toggle1===0){
+                toggle1=1;
+                var x = e.target.offsetTop;
+                var y = e.target.offsetWidth;
+                $("#profile-menu").css({"display":"block","margin":"1rem"});
+                setTimeout(()=>{
+                    $("#profile-menu").css({"display":"none"});
+                },3500)
+            }else{
+                toggle1=0;
+                var x = e.target.offsetTop;
+                var y = e.target.offsetWidth;
+                $("#profile-menu").css({"display":"none"});
+            }
+            // $("#profile-menu").css("right",y);
+            console.log(x,y);
+        })
+        var toggle = 0;
+        $(".sidebar").on('click',()=>{
+            if(toggle===0){
+                toggle=1;
+                $(".sidebar").css({
+                    "width":"20%",
+                    "top":"10px",
+                    "left":"0",
+                    "background-color":"#007BFF"
+                });
+                $(".option").css({
+                    "display":"block"
+                })
+
+            }
+            else{
+                toggle=0;
+                $(".sidebar").css({
+                    "width":"40px",
+                    "top":"10px",
+                    "left":"0px",
+                    "bottom":"10px",
+                    "background-color":"#007BFF"
+    
+                });
+                $(".option").css({
+                    "display":"none"
+                })
+            }
+        })
+        //wallet
+        $(".wallet").on('click',()=>{
+            if(toggle===0){
+                toggle=1;
+                $(".wallet").css({
+                    "background-color":" rgb(123 161 255)",
+                    "width": "40px",
+                    "transition": ".5s ease-in-out",
+                    "position": "fixed",
+                    "top": "50%",
+                    "right": "0px",
+                    "transform": "translate(0,-50%)",
+                    "height": "50vh",
+                    "z-index": "1000",
+                    "width":"25%"
+                });
+                $(".wallet-container").css({
+                    "display":"flex"
+                })
+
+            }
+            else{
+                toggle=0;
+                $(".wallet").css({
+                    "background-color":" rgb(123 161 255)",
+                    "width": "40px",
+                    "transition": ".5s ease-in-out",
+                    "position": "fixed",
+                    "top": "50%",
+                    "right": "0px",
+                    "transform": "translate(0,-50%)",
+                    "height": "50vh",
+                    "z-index": "1000"
+                });
+                $(".wallet-container").css({
+                    "display":"none"
+                })
+            }
+        })
+        //end
+        var html="";
+                    var htmlLive="";
+                    var htmlEnd=" ";
+        var user = <%-JSON.stringify(userData)%>;
+        $.ajax({
+            url:"/getAuctionSeller",
+            method:"POST",
+            data:{uid:user.user_id},
+            success:function(result,status,xhr){
+                console.log(result);
+                result.result.forEach(auction => {
+                    var object = isLive(auction);
+                    console.log(object);
+                    if(object.isLive){
+                    html+=`
+                    <li id=${auction.name} class="auction-list-item">
+                        <a class="auction-link" href ="/auction/${auction.name}">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">${auction.name}</h3>
+                                    <small class="time-remaining"><span id="${auction.name}hours"></span>:<span id="${auction.name}mins"></span>:<span id="${auction.name}secs"></span></small>
+                                    <small class="approved">Approved</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img" style='background: url("${auction.item.imageFront}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 125px;
+                width: 125px;
+                border-radius: 10px;
+                border: 2px solid #5f8aff;
+              '></div>
+                                        </div>
+                                        <div class="item-info">
+                                               <p><b>Item Name : </b>${auction.item.name}</p>
+                                                <p><b>HighestBid : </b><span id="${auction.name}highest-bid">${auction.item.highestBid?numFormatter(auction.item.highestBid.value):numFormatter(auction.item.reserve)}</span></p>
+                                                <p><b>Description : </b>${String(auction.item.desc).substring(0,Math.min(40,String(auction.item.desc).length))+"..."}</p>
+                                       </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+    
+                    }
+                    else if(!object.isLive && object.reason==="upcoming"){
+                        console.log(object);
+                        htmlLive+=`
+                    <li id=${auction.name} class="auction-list-item">
+                        <i onclick="deleteAuction('${auction.name}','auction')" style="cursor:pointer;" class="delete-btn fa-solid fa-circle-minus"></i>     <a class="auction-link" href ="/auction/${auction.name}">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">${auction.name}</h3>
+                                    <small class="time-remaining">${auction.startDate}</small>
+                                    <small class="approved">Approved</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                                                    <div class="item-img" style='background: url("${auction.item.imageFront}");
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                        /* background-color: rgb(240, 240, 240); */
+                                        /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                                        height: 125px;
+                                        width: 125px;
+                                        border-radius: 10px;
+                                        border: 2px solid #5f8aff;
+                                    '></div>
+                                        </div>
+                                        <div class="item-info">
+                                               <p><b>Item Name : </b>${auction.item.name}</p>
+                                                <p><b>HighestBid : </b><span id="${auction.name}highest-bid">${auction.item.highestBid?numFormatter(auction.item.highestBid.value):numFormatter(auction.item.reserve)}</span></p>
+                                                <p><b>Description : </b>${String(auction.item.desc).substring(0,Math.min(40,String(auction.item.desc).length))+"..."}</p>
+                                        </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+                       
+                    }else{
+                    htmlEnd+=`
+                    <li id=${auction.name} class="auction-list-item">
+                        <a class="auction-link" href ="/auction/${auction.name}">
+                            <div class="mycard">
+                                <div class="mycard-title center">
+                                    <h3 class="auction-title">${auction.name}</h3>
+                                    <small class="time-remaining">${auction.startDate}</small>
+                                    <small class="approved">APPROVED</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img" style='background: url("${auction.item.imageFront}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 125px;
+                width: 125px;
+                border-radius: 10px;
+                border: 2px solid #5f8aff;
+              '></div>
+                                        </div>
+                                        <div class="item-info">
+                                               <p><b>Item Name : </b>${auction.item.name}</p>
+                                                <p><b>HighestBid : </b><span id="${auction.name}highest-bid">${auction.item.highestBid?numFormatter(auction.item.highestBid.value):numFormatter(auction.item.reserve)}</span></p>
+                                                <p><b>Description : </b>${String(auction.item.desc).substring(0,Math.min(40,String(auction.item.desc).length))+"..."}</p>
+                                        </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+                       
+                    }
+                    // console.log(auction.item.highestBid?auction.item.highestBid.value:auction.item.reserve);
+
+                    if(html.trim().length===0){
+                        $(".live-auctions>.info").html('<div class="not-found"></div>No live auction found.');
+                    }else{
+                        $(".live-auctions>.auction-list").html(html);
+                        $(".live-auctions>.info").html("");
+                     }
+                     if(htmlEnd.trim().length===0){
+                        $(".finished-auctions>.info").html('<div class="not-found"></div>No Data found.');
+                    }else{
+                        $(".finished-auctions>.auction-list").html(htmlEnd);
+                        $(".finished-auctions>.info").html("");
+
+                    }
+                    if(htmlLive.trim().length===0){
+                        $(".upcoming-auctions>.info").html('<div class="not-found"></div>No upcoming auction found.');
+                    }else{
+                        $(".upcoming-auctions>.auction-list").html(htmlLive);
+                        $(".upcoming-auctions>.info").html("");
+                    }
+
+        
+                });
+                
+                firebase.database().ref(`auctions`).on("value",(snapshot)=>{
+                    timer(snapshot)
+                        snapshot.forEach(element=>{
+                            $(`#${element.val().name}highest-bid`).html(element.val().item.highestBid.value);
+                        })
+                   
+                 })
+                
+                
+            },
+            error:function(xhr,status,error){
+
+            }
+        })
+
+        // $.ajax({
+        //     url:"/getPendingAuction",
+        //     method:"POST",
+        //     data:{uid:user.user_id},
+        //     success:function (result,status,jqXHR){
+
+        //     },
+        //     error:function(jqXHR,status,error){
+
+        //     }
+        // })
+
+        function close(){
+            console.log("working fine");
+            $(".overlay-container").css({"display":"none"});
+        }
+        function open(){
+            $(".overlay-container").css({"display":"block"});
+        }
+
+        $('#open').on('click',()=>{
+            open();
+        })
+        $('#close').on('click',()=>{
+            close();
+        })
+
+
+        //create auction
+
+        $(".submit").on('click',async (e)=>{
+
+        e.preventDefault();
+        $(".loading").css({
+            "display":"block"
+        })
+        $(".submit").prop('disabled',true);
+        var file1 = $(`#img1`).prop(`files`)[0];
+        var file2 = $(`#img2`).prop(`files`)[0];
+        var file3 = $(`#img3`).prop(`files`)[0];
+        var name = $("#itemName").val();
+        var price = $("#price").val();
+        var desc = $("#desc").val();
+        var ref = firebase.database().ref("Requests");
+        // var auction = firebase.database().ref(`auctions`);
+        // var auctionId = auction.push().key
+        var key = ref.push().key;
+        var top = await upload(file1,`top${key}`)
+        var front = await upload(file2,`front${key}`)
+        var back = await upload(file3,`back${key}`)
+
+        var object = {
+          name:name,
+          desc:desc,
+          base:price,
+          itemId:key,
+          seller:user.user_id,
+          status:"pending",
+          imageTop:top,
+          imageBack:back,
+          imageFront:front
+        }
+
+        console.log(object);
+
+        ref.child(key).set(object,error=>{
+            if(!error){
+                $("#itemName").val("");
+                $("#price").val("");
+                $("#desc").val("");
+                $(`#img1`).val("");
+                $(`#img2`).val("");
+                $(`#img3`).val("");
+                $(".notification").css({
+                    "display":"flex",
+                    "background-color":"green",
+                    "color":"white"
+                })
+                $(".loading").css({
+            "display":"none"
+        })
+                $(".message").html("Successfully submitted.");
+                $(".submit").prop('disabled',false);
+            }else{
+                $(".notification").css({
+                    "display":"flex",
+                    "background-color":"red",
+                    "color":"white"
+                })
+                $(".submit").prop('disabled',false);
+                $(".message").html("Something went wrong.");
+            }
+        });
+
+      })
+
+
+      function upload(file1,name){
+        return new Promise((resolve,reject)=>{
+          var storageRef = firebase.storage().ref();
+        var uploadTask = storageRef.child(`images/${name}.jpg`).put(file1);
+        
+ uploadTask.on('state_changed', 
+  (snapshot) => {
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        console.log('Upload is paused');
+        break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        console.log('Upload is running');
+        break;
+    }
+  }, 
+  (error) => {
+  }, 
+  () => {
+    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+      resolve(downloadURL);
+    });
+  }
+);
+        })
+       
+        
+      }
+
+      firebase.database().ref("Requests").on("value", (snapshot) => {
+            requests=[];
+            var htmlPend="",htmlReject="";
+              snapshot.forEach(snap => {
+                  if(snap.val().seller===user.user_id){
+                  var request = snap.val();
+                          if(request.status==="pending"){
+                          htmlPend+=`
+                    <li id=${request.auctionId} class="auction-list-item">
+                        <i onclick="deleteAuction('${request.itemId}','request')" style="cursor:pointer;" class="delete-btn fa-solid fa-circle-minus"></i>   <a class="auction-link" href ="/pendingAuction/${request.itemId}">
+                            <div class="mycard">
+                                  <div class="mycard-title center">
+                                    <h3 class="auction-title">${request.itemId}</h3>
+
+                                    <small class="pending">Pending</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img" style='background: url("${request.imageFront}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 125px;
+                width: 125px;
+                border-radius: 10px;
+                border: 2px solid #5f8aff;
+              '></div>
+                                        </div>
+                                        <div class="item-info">
+                                               <p><b>Item Name : </b>${request.name}</p>
+                                                <p><b>HighestBid : </b><span id="${request.base}highest-bid">${numFormatter(request.base)}</span></p>
+                                                <p><b>Description : </b>${String(request.desc).substring(0,Math.min(40,String(request.desc).length))+"..."}</p>
+                                       </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+                    }else if(request.status === "rejeted"){
+                        htmlReject+=`
+                    <li id=${request.auctionId} class="auction-list-item">
+                        <a class="auction-link" href ="/pendingAuction/${request.itemId}">
+                            <div class="mycard">
+                                <i onclick="deleteAuction('${request.itemId}','request')" style="cursor:pointer;" class="delete-btn fa-solid fa-circle-minus"></i>   <a class="auction-link" href ="/pendingAuction/${request.itemId}">
+                             <div class="mycard-title center">
+                                    <h3 class="auction-title">${request.itemId}</h3>
+
+                                    <small class="rejected">Rejected</small>
+                                </div>
+                                <div class="mycard-body">
+                                        <div class="item-image-container">
+                                            <div class="item-img" style='background: url("${request.imageFront}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                /* background-color: rgb(240, 240, 240); */
+                /* box-shadow: 0 0 1rem .05rem rgba(128, 128, 128, 0.137); */
+                height: 125px;
+                width: 125px;
+                border-radius: 10px;
+                border: 2px solid #5f8aff;
+              '></div>
+                                        </div>
+                                        <div class="item-info">
+                                               <p><b>Item Name : </b>${request.name}</p>
+                                                <p><b>HighestBid : </b><span id="${request.base}highest-bid">${numFormatter(request.base)}</span></p>
+                                                <p><b>Description : </b>${String(request.desc).substring(0,Math.min(40,String(request.desc).length))+"..."}</p>
+                                       </div>
+                                </div>
+                            </div>
+                            </a>
+                        </li>`;
+                    }
+                }
+                              
+        
+
+             
+                      });
+                      if(htmlPend.length>0){
+                        $(".pending-auctions>.auction-list").html(htmlPend);
+                        $(".pending-auctions>.info").html("");
+                      }
+                        else{
+                            $(".pending-auctions>.auction-list").html("");
+                            $(".pending-auctions>.info").html('<div class="not-found"></div>No pending auction found.');
+                         }
+                    
+                         if(htmlReject.length>0){
+                        $(".rejected-auctions>.auction-list").html(htmlReject);
+                        $(".rejected-auctions>.info").html("");
+                      }
+                        else{
+                            $(".rejected-auctions>.auction-list").html("");
+                            $(".rejected-auctions>.info").html('<div class="not-found"></div>No rejected auction found.');
+                         }
+
+    
+
+            });
+        
+    function closeNotification(){
+        $(".notification").css({
+            "display":"none"
+        })
+    }
+
+    function deleteAuction(auctionId,type){
+        if(type==="request"){
+            console.log(auctionId,type);
+            firebase.database().ref(`Requests`).child(auctionId).remove();
+        }else if(type==="auction"){
+            console.log(auctionId,type);
+            firebase.database().ref(`auctions`).child(auctionId).remove();
+        }
+    }
+
+    function openPage(pageName, elmnt) {
+  // Hide all elements with class="tabcontent" by default */
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("auction");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Remove the background color of all tablinks/buttons
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+    tablinks[i].style.color = "rgb(139, 139, 139)";
+  }
+
+  // Show the specific tab content
+//   console.log(pageName);
+  document.querySelector("."+pageName).style.display = "block";
+
+  elmnt.style.color = "blue";
+
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+       
+
+    </script>
+
+</body>
+</html>

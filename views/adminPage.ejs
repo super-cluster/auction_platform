@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Aucx</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styleAdmin.css" />
+    <!-- <link rel="stylesheet" href="../css/style.css" /> -->
+    <!-- Sweet Alert JavaScript -->
+    <script src="/js/sweetalert2.js"></script>
+    <script src="/js/utility.js"></script>
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+      crossorigin="anonymous"
+    />
+    <!-- Nunito Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+  </head>
+  <body style="display: flex">
+    <div class="sidebar">
+      <div class="option">
+        <h2
+          style="
+            pointer-events: none;
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+          "
+        >
+          Aucx
+        </h2>
+        <ul class="option-list">
+          <li class="option-list-item">
+            <i class="fa-solid fa-rectangle-history"></i>
+            <a href="">&nbsp;Add category</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div
+          class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 text-center pt-5 pb-4 text-primary"
+        >
+          <h1
+            style="
+              font-size: 4.5rem;
+              margin: 0;
+              padding: 0;
+              display: inline-block;
+            "
+            class="h1"
+          >
+            Aucx
+          </h1>
+          <small style="color: black; margin: 0; padding: 0"
+            >Best Place to Bid</small
+          >
+        </div>
+        <div>
+          <div class="profile"></div>
+          <div id="profile-menu">
+            <a class="profile-menu-item" href="/profile">Profile</a>
+            <a class="profile-menu-item" href="/sessionLogout">Logout</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="defaultOpen" class="tablink" onclick="openPage('new-request', this)">New Requests</button>
+        <button class="tablink" onclick="openPage('approved', this)">Approved Requests</button>
+        <button class="tablink" onclick="openPage('rejected', this)">Rejected Requests</button>
+    </div>
+
+      <div class="section new-request">
+        <h2>New requests</h2>
+        <div class="hr"></div>
+        <ul class="request-list">
+            <div class="info center">
+                <div class="not-found"></div>
+                No new request found.
+            </div>
+        </ul>
+      </div>
+      <div class="section approved">
+        <h2>Approved requests</h2>
+        <div class="hr"></div>
+        <ul class="request-list">
+            <div class="info center">
+                <div class="not-found"></div>
+                No request approved.
+            </div>
+        </ul>
+      </div>
+      <div class="section rejected">
+        <h2>Rejected requests</h2>
+        <div class="hr"></div>
+        <ul class="request-list">
+            <div class="info center">
+                <div class="not-found"></div>
+                No request rejected.
+            </div>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      // Initialize Firebase
+      // TODO: Replace with your project's customized code snippet
+      const firebaseConfig = {
+        apiKey: "AIzaSyAvUSt2V51HlWBWjOO9ggc0scdXl4HEq9s",
+        authDomain: "aucx-8f0c7.firebaseapp.com",
+        databaseURL: "https://aucx-8f0c7-default-rtdb.firebaseio.com",
+        projectId: "aucx-8f0c7",
+        storageBucket: "aucx-8f0c7.appspot.com",
+        messagingSenderId: "661074584627",
+        appId: "1:661074584627:web:fa99e8f709167e9734ef46",
+        measurementId: "G-6ZBVC5M3SY",
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+              var toggle1 = 0 ;
+              $(".profile").on("click",(e)=>{
+                  if(toggle1===0){
+                      toggle1=1;
+                      var x = e.target.offsetTop;
+                      var y = e.target.offsetWidth;
+                      $("#profile-menu").css({"display":"block","margin":"1rem"});
+                      setTimeout(()=>{
+                          $("#profile-menu").css({"display":"none"});
+                      },3500)
+                  }else{
+                      toggle1=0;
+                      var x = e.target.offsetTop;
+                      var y = e.target.offsetWidth;
+                      $("#profile-menu").css({"display":"none"});
+                  }
+                  // $("#profile-menu").css("right",y);
+                  console.log(x,y);
+              })
+
+              var requests ;
+          firebase.database().ref("Requests").on("value", (snapshot) => {
+            requests=[];
+            html="",html1="",html2="";
+              snapshot.forEach(snap => {
+                  var request = snap.val();
+                  console.log(request);
+                          if(request.status==="pending"){
+                          html+=`
+                          <li class="request-list-item">
+                                  <div class="admin-border">
+                                    <div class="card-top">
+                                      <div style="font-size:2rem;color:black;">
+                                      <span class="bold">Item name :</span>
+                                      <span id="${request.itemId}name">${request.name}</span>
+                                      </div>
+                            
+                                      <span class="bold">Description :</span>
+                                      <span id="${request.itemId}desc">${request.desc}</span>
+                                      <br>
+                                      <span class="bold">Base price :</span>
+                                      <span id="${request.itemId}base">${request.base} </span><span>₹</span>
+                                      <br><br>
+                                      ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+                                      </div>
+                                      <div class ="item-images">
+                                      <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+                                       <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+                                       <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+                                      </div>
+                                      <div class="left" style="margin:1rem;">
+                                          <span><button id="${request.itemId}_accept" onclick="accept('${request.itemId}')">Accept</button></span>
+                                          <span><button id="${request.itemId}_reject" onclick="reject('${request.itemId}')">Reject</button></span>
+                                          <br>
+                                      </div>
+                                      <div class="left">
+                                      <span><b>Seller Id : </b></span>
+                                      <span id="${request.itemId}seller">${request.seller}</span>
+                                      </div>
+                                  </div>
+                              </li>`;
+                              
+                        }else if(request.status==="approved"){
+                            html1+=`<li class="request-list-item">
+                                  <div class="admin-border">
+                                    <div class="card-top">
+                                      <div style="font-size:2rem;color:black;">
+                                      <span class="bold">Item name :</span>
+                                      <span id="${request.itemId}name">${request.name}</span>
+                                      </div>
+                                    
+                                      <span class="bold">Description :</span>
+                                      <span id="${request.itemId}desc">${request.desc}</span>
+                                      <br>
+                                      <span class="bold">Base price :</span>
+                                      <span id="${request.itemId}base">${request.base} </span><span>₹</span>
+                                      <br><br>
+                                      ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+                                      </div>
+                                       <div class ="item-images">
+                                      <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+                                       <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+                                       <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+                                     </div>
+                                       <div class="left" style="margin:1rem;">
+                                          <span><button class="approved-btn ${request.itemId}_accept" enabled=false>Approved</button></span>
+                                          <br>
+                                      </div>
+                                      <div class="left">
+                                      <span><b>Seller Id : </b></span>
+                                      <span id="${request.itemId}seller">${request.seller}</span>
+                                      </div>
+                                  </div>
+                              </li>`;
+                        }else{
+                            html2+=`<li class="request-list-item">
+                                  <div class="admin-border">
+                                    <div class="card-top">
+                                      <div style="font-size:2rem;color:black;">
+                                      <span class="bold">Item name :</span>
+                                      <span id="${request.itemId}name">${request.name}</span>
+                                      </div>
+                                      
+                                      <span class="bold">Description :</span>
+                                      <span id="${request.itemId}desc">${request.desc}</span>
+                                      <br>
+                                      <span class="bold">Base price :</span>
+                                      <span id="${request.itemId}base">${request.base} </span><span>₹</span>
+                                      <br><br>
+                                      ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+                                      </div>
+                                        <div class ="item-images">
+                                      <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+                                       <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+                                       <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+                                     </div>
+                                       <div class="left" style="margin:1rem;">
+                                          <span><button class="rejected-btn ${request.itemId}_accept" enabled=false>Rejected</button></span>
+                                          <br>
+                                      </div>
+                                         <div class="left">
+                                      <span><b>Seller Id : </b></span>
+                                      <span id="${request.itemId}seller">${request.seller}</span>
+                                      </div>
+                                  </div>
+                              </li>`;
+                             
+                              // console.log(html2);
+                        }
+                        if(html1.length>0)
+                        $(".approved>.request-list").html(html1);
+                        else{
+                          $(".approved>.request-list").html(' <div class="info center"><div class="not-found"></div>No request found.</div>');
+                        }
+                        if(html2.length>0)
+                        $(".rejected>.request-list").html(html2);
+                        else
+                        $(".rejected>.request-list").html(' <div class="info center"><div class="not-found"></div>No request found.</div>');
+                        if(html.length>0)
+                        $(".new-request>.request-list").html(html);
+                        else
+                        $(".new-request>.request-list").html(' <div class="info center"><div class="not-found"></div>No request found.</div>');
+             
+                      });
+
+            });
+
+            //   function display(){
+            //   var html,html1,html2;
+            //   $.ajax({
+            //       url:"/getRequests",
+            //       method:"POST",
+            //       success:function(result,status,xhr){
+            //         html="",html1="",html2="";
+            //           result.result.forEach(request => {
+            //               console.log(request);
+            //               if(request.status=="pending"){
+            //               html+=`
+            //               <li class="request-list-item">
+            //                       <div class="admin-border">
+            //                         <div class="card-top">
+            //                           <div style="font-size:2rem;color:black;">
+            //                           <span class="bold">Item name :</span>
+            //                           <span id="${request.itemId}name">${request.name}</span>
+            //                           </div>
+                            
+            //                           <span class="bold">Description :</span>
+            //                           <span id="${request.itemId}desc">${request.desc}</span>
+            //                           <br>
+            //                           <span class="bold">Base price :</span>
+            //                           <span id="${request.itemId}base">${request.base} ₹</span>
+            //                           <br><br>
+            //                           ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+            //                           </div>
+            //                           <div class ="item-images">
+            //                           <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+            //                            <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+            //                            <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+            //                           </div>
+            //                           <div class="left" style="margin:1rem;">
+            //                               <span><button id="${request.itemId}_accept" onclick="accept('${request.itemId}')">Accept</button></span>
+            //                               <span><button id="${request.itemId}_reject" onclick="reject('${request.itemId}')">Reject</button></span>
+            //                               <br>
+            //                           </div>
+            //                           <div class="left">
+            //                           <span><b>Seller Id : </b></span>
+            //                           <span id="${request.itemId}seller">${request.seller}</span>
+            //                           </div>
+            //                       </div>
+            //                   </li>`;
+                              
+            //             }else if(request.status=="approved"){
+            //                 html1+=`<li class="request-list-item">
+            //                       <div class="admin-border">
+            //                         <div class="card-top">
+            //                           <div style="font-size:2rem;color:black;">
+            //                           <span class="bold">Item name :</span>
+            //                           <span id="${request.itemId}name">${request.name}</span>
+            //                           </div>
+                                    
+            //                           <span class="bold">Description :</span>
+            //                           <span id="${request.itemId}desc">${request.desc}</span>
+            //                           <br>
+            //                           <span class="bold">Base price :</span>
+            //                           <span id="${request.itemId}base">${request.base} ₹</span>
+            //                           <br><br>
+            //                           ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+            //                           </div>
+            //                            <div class ="item-images">
+            //                           <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+            //                            <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+            //                            <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+            //                          </div>
+            //                            <div class="left" style="margin:1rem;">
+            //                               <span><button class="approved-btn ${request.itemId}_accept" enabled=false>Approved</button></span>
+            //                               <br>
+            //                           </div>
+            //                           <div class="left">
+            //                           <span><b>Seller Id : </b></span>
+            //                           <span id="${request.itemId}seller">${request.seller}</span>
+            //                           </div>
+            //                       </div>
+            //                   </li>`;
+            //             }else{
+            //                 html2+=`<li class="request-list-item">
+            //                       <div class="admin-border">
+            //                         <div class="card-top">
+            //                           <div style="font-size:2rem;color:black;">
+            //                           <span class="bold">Item name :</span>
+            //                           <span id="${request.itemId}name">${request.name}</span>
+            //                           </div>
+                                      
+            //                           <span class="bold">Description :</span>
+            //                           <span id="${request.itemId}desc">${request.desc}</span>
+            //                           <br>
+            //                           <span class="bold">Base price :</span>
+            //                           <span id="${request.itemId}base">${request.base} ₹</span>
+            //                           <br><br>
+            //                           ${request.hasOwnProperty("auctionId")?`<a class="" href="/auction/${request.auctionId}">Go to auction</a>`:""}
+                                   
+            //                           </div>
+            //                             <div class ="item-images">
+            //                           <span><img height="150" id="${request.itemId}imageTop" src="${request.imageTop}"></span>
+            //                            <span><img height="150" id="${request.itemId}imageBack" src="${request.imageBack}"></span> 
+            //                            <span><img height="150" id="${request.itemId}imageFront" src="${request.imageFront}"></span><br>
+            //                          </div>
+            //                            <div class="left" style="margin:1rem;">
+            //                               <span><button class="rejected-btn ${request.itemId}_accept" enabled=false>Rejected</button></span>
+            //                               <br>
+            //                           </div>
+            //                              <div class="left">
+            //                           <span><b>Seller Id : </b></span>
+            //                           <span id="${request.itemId}seller">${request.seller}</span>
+            //                           </div>
+            //                       </div>
+            //                   </li>`;
+                             
+            //                   console.log(html2);
+            //             }
+            //             if(html1.length>0)
+            //             $(".approved>.request-list").html(html1);
+            //             if(html2.length>0)
+            //             $(".rejected>.request-list").html(html2);
+            //             if(html.length>0)
+            //             $(".new-request>.request-list").html(html);
+
+            //           });
+
+            //       },
+            //       error:function(xhr,status,error){
+
+            //       }
+            //   })
+            // }
+
+              var toggle = 0;
+                    $(".sidebar").on('click',()=>{
+                        if(toggle===0){
+                            toggle=1;
+                            $(".sidebar").css({
+                                "width":"20%",
+                                "top":"10px",
+                                "left":"0",
+                                "background-color":"#007BFF"
+                            });
+                            $(".option").css({
+                                "display":"block"
+                            })
+                        }
+                        else{
+                            toggle=0;
+                            $(".sidebar").css({
+                                "width":"40px",
+                                "top":"10px",
+                                "left":"0px",
+                                "bottom":"10px",
+                                "background-color":"#007BFF"
+
+                            });
+                            $(".option").css({
+                                "display":"none"
+                            })
+                        }
+                    })
+
+
+          function accept(itemId){
+              console.log(itemId);
+      var auction = firebase.database().ref(`auctions`);
+      var key = auction.push().key
+      var name = $(`#${itemId}name`).html();
+      var desc = $(`#${itemId}desc`).html();
+      var reserve = $(`#${itemId}base`).html();
+      var seller = $(`#${itemId}seller`).html();
+      var imageTop = $(`#${itemId}imageTop`).attr("src");
+      var imageBack = $(`#${itemId}imageBack`).attr("src");
+      var imageFront = $(`#${itemId}imageFront`).attr("src");
+      console.log(name,desc,reserve,seller);
+      var object = {};
+      var date  = new Date();
+      date.setDate(date.getDate() + 1);
+      date = date.toUTCString();
+      console.log(date);
+      object[`/Requests/${itemId}`] = {
+        status:"approved",
+        itemId:itemId,
+        name:name,
+        base:Number(reserve),
+        desc:desc,
+        seller:seller,
+        imageTop:imageTop,
+        imageBack:imageBack,
+        imageFront:imageFront,
+        auctionId:key
+      };
+      object[`/auctions/${key}`] = {
+        item:{
+            name:name,
+            reserve:Number(reserve),
+            desc:desc,
+            count:0,
+            imageTop:imageTop,
+            imageBack:imageBack,
+            imageFront:imageFront,
+        },
+        seller:seller,
+        startDate:date,
+        name:key,
+        status:"upcoming"
+      };
+
+     firebase.database().ref().update(object);
+    //  display();
+    }
+          function reject(itemId){
+            console.log(itemId);
+      var auction = firebase.database().ref(`auctions`);
+      var key = auction.push().key
+      var name = $(`#${itemId}name`).html();
+      var desc = $(`#${itemId}desc`).html();
+      var reserve = $(`#${itemId}base`).html();
+      var seller = $(`#${itemId}seller`).html();
+      var imageTop = $(`#${itemId}imageTop`).attr("src");
+      var imageBack = $(`#${itemId}imageBack`).attr("src");
+      var imageFront = $(`#${itemId}imageFront`).attr("src");
+    //   console.log(name,desc,reserve,seller);
+      var object = {};
+      var date  = new Date();
+      date.setDate(date.getDate() + 1);
+      date = date.toUTCString();
+      console.log(date);
+      object[`/Requests/${itemId}`] = {
+        status:"rejected",
+        itemId:itemId,
+        name:name,
+        base:Number(reserve),
+        desc:desc,
+        seller:seller,
+        imageTop:imageTop,
+        imageBack:imageBack,
+        imageFront:imageFront
+      };
+    //   object[`/auctions/${key}`] = {
+    //     item:{
+    //         name:name,
+    //         reserve:reserve,
+    //         desc:desc,
+    //         count:0
+    //     },
+    //     seller:seller,
+    //     startDate:date,
+    //     name:key,
+    //     status:"upcoming"
+    //   };
+      firebase.database().ref().update(object);
+      // display();
+            //   console.log(itemId);
+          }
+          // display();
+
+          function openPage(pageName, elmnt) {
+  // Hide all elements with class="tabcontent" by default */
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("section");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Remove the background color of all tablinks/buttons
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+    tablinks[i].style.color = "rgb(139, 139, 139)";
+  }
+
+  // Show the specific tab content
+//   console.log(pageName);
+  document.querySelector("."+pageName).style.display = "block";
+
+  elmnt.style.color = "blue";
+
+}
+document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>
