@@ -5,13 +5,13 @@ const Razorpay = require('razorpay');
 const { resolve } = require("path");
 
 var instance = new Razorpay({
-  key_id: 'rzp_test_Le7cgiEBedj3MT',
-  key_secret: 'FlkuQMq5sVo8YtRgYPYUokri',
+  key_id: 'Key_Id',
+  key_secret: 'Key_Secret',
 });
 
 const vonage = new Vonage({
-  apiKey: "9ec4485f",
-  apiSecret: "8jDLzJXIy0YTvYCr"
+  apiKey: "apiKey",
+  apiSecret: "apiSecret"
 })
 
 var access = {};
